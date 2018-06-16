@@ -42,13 +42,17 @@ bool Feed_forward::set_activation(float* activation_function){
 bool Feed_forward::set_weights_randomly(){
   for(int i=0; i<sizeof(this.weights); i++){
     for(int j=0; j<sizeof(this.weights[i]); j++){
-      //Figure out the rand stuff
-      this.weights[i][j]=
+      this.weights[i][j]=rand()%100+1;
     }
   }
   return true;
 }
 bool Feed_forward::set_biasses_randomly(){
+  for(int i=0; i<sizeof(this.biasses); i++){
+    for(int j=0; j<sizeof(this.biasses[i]); j++){
+      this.biasses[i][j]=rand()%100+1;
+    }
+  }
   return true;
 }
 
