@@ -3,6 +3,8 @@
 #include <functions/activation_functions.h>
 #include <networks/node.h>
 #include <stdlib.h>
+#include <fstream>
+#include <iostream>
 
 class Feed_forward{
 private:
@@ -15,7 +17,7 @@ private:
   //Per hidden layer
   networks::Node* nodes[][];
   int num_hiddenlayers;
-  int nodes_per_layer;
+  int nodes_per_layer[];
 
   //Input and then output data
   float training_data[][2];
@@ -31,8 +33,8 @@ public:
   ~Feed_forward();
 
   void train(float training_data[][2]);
-  bool save_network();
-  bool load_network(char* path);
+  bool save_network(string path);
+  bool load_network(string path);
   bool set_activation_function(float* activation_function);
   void setup_nodes(int nodes_per_layer[]);
   float use_network(float inputs[]);

@@ -3,11 +3,14 @@
 using namespace the_network;
 using namespace networks;
 using namespace functions;
+using namespace std;
 
 //Public stuff
 //Set arguments for this function when I can be bothered
 Feed_forward::Feed_forward(bool new_network=true, int nodes_per_layer[]=NULL, float* activation_function=NULL){
   if(new_network&&nodes_per_layer!=NULL&&activation_function!=NULL){
+    this.num_hiddenlayers=sizeof(nodes_per_layer);
+    this.nodes_per_layer=nodes_per_layer;
     this.set_activation(activation_function);
     this.set_weights_randomly();
     this.set_biasses_randomly();
@@ -73,10 +76,52 @@ void Feed_forward::train(float training_data[][2]){
 
 }
 
-bool Feed_forward::save_network(){
+bool Feed_forward::save_network(string path, string name){
+  ofstream network_file;
+  network_file.open(path+"/"+name+".nn");
+
+  //Not needed however use for load
+  /*string weight_data;
+  string bias_data;
+  string activation_function_name;
+  //Number of hidden layers
+  string number_hl;
+  //Nodes per layer
+  string npl;
+  */
+  network_file<<"WEIGHTS"<<endl;
+  for(int i=0; i<sizeof(this.weights); i++){
+    network_file<<"[";
+    for(int j=0; j<sizeof(this.weights[i]); j++){
+      network_file<<this.weights[i][j]<<" ";
+    }
+    network_file<<"]"<<endl;
+  }
+  network_file<<"END"<<endl;
+
+  network_file<<"BIASSES"<<endl;
+  for(int i=0; i<sizeof(this.biasses); i++){
+    network_file<<"[";
+    for(int j=0; j<sizeof(this.biasses[i]); j++){
+      network_file<<this.biasses[i][j]<<" ";
+    }
+    network_file<<"]"<<endl;
+  }
+  network_file<<"END"<<endl;
+
+  network_file<<"ACTIVATION FUNCTION: "<<Activation_functions::get_func_name(this.activation_function)<<endl;
+  network_file<<"NUM HIDDEN LAYERS: "<<this.num_hiddenlayers<<endl;
+
+  network_file<<"NODES PER LAYER"<<endl;
+  for(int i=0; i<sizeof(this.nodes_per_layer); i++){
+    network_file<<this.nodes_per_layer[i]<<" ";
+  }
+  network_file<<"END"<<endl;
+
+  network_file<<"ENDFILE"<<endl;
   return true;
 }
-bool Feed_forward::load_network(char* path){
+bool Feed_forward::load_network(string full_path){
   return true;
 }
 

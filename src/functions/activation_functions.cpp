@@ -2,6 +2,7 @@
 
 using namespace the_network;
 using namespace functions;
+using namespace std;
 
 //Sigmoid
 float Activation_functions::sigmoid(float x){
@@ -33,4 +34,12 @@ float Activation_functions::softmax(float inputs[]){
     result[i]=inputs_exp[i]/sum_inputs_exp;
   }
   return result;
+}
+string get_func_name(float* func){
+  string func_name="unknown";
+  if(func==this.list_of_functions[0]){func_name="sigmoid";}
+  else if(func==this.list_of_functions[1]){func_name="tanh";}
+  else if(func==this.list_of_functions[2]){func_name="ReLU";}
+  else if(func==this.list_of_functions[3]){func_name="softmax";}
+  return func_name;
 }
