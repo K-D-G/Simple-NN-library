@@ -10,6 +10,7 @@ public:
   float* list_of_functions[4]={&this.sigmoid, &this.tanh, &this.ReLU, &this.softmax};
 
   std::string get_func_name(float* func);
+  float* get_func(std::string name);
   float sigmoid(float x);
   float tanh(float x);
   float ReLU(float x);

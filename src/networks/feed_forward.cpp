@@ -80,20 +80,15 @@ bool Feed_forward::save_network(string path, string name){
   ofstream network_file;
   network_file.open(path+"/"+name+".nn");
 
-  //Not needed however use for load
-  /*string weight_data;
-  string bias_data;
-  string activation_function_name;
-  //Number of hidden layers
-  string number_hl;
-  //Nodes per layer
-  string npl;
-  */
   network_file<<"WEIGHTS"<<endl;
   for(int i=0; i<sizeof(this.weights); i++){
     network_file<<"[";
     for(int j=0; j<sizeof(this.weights[i]); j++){
-      network_file<<this.weights[i][j]<<" ";
+      network_file<<"[";
+      for(int x=0; x<sizeof(this.weights[i][j]); x++){
+        network_file<<this.weights[i][j][x]<<" ";
+      }
+      network_file<<"]";
     }
     network_file<<"]"<<endl;
   }
@@ -103,7 +98,11 @@ bool Feed_forward::save_network(string path, string name){
   for(int i=0; i<sizeof(this.biasses); i++){
     network_file<<"[";
     for(int j=0; j<sizeof(this.biasses[i]); j++){
-      network_file<<this.biasses[i][j]<<" ";
+      network_file<<"[";
+      for(int x=0; x<sizeof(this.biasses[i][j]); x++){
+        network_file<<this.biasses[i][j]<<" ";
+      }
+      network_file<<"]";
     }
     network_file<<"]"<<endl;
   }
@@ -113,15 +112,249 @@ bool Feed_forward::save_network(string path, string name){
   network_file<<"NUM HIDDEN LAYERS: "<<this.num_hiddenlayers<<endl;
 
   network_file<<"NODES PER LAYER"<<endl;
+  network_file<<"[";
   for(int i=0; i<sizeof(this.nodes_per_layer); i++){
     network_file<<this.nodes_per_layer[i]<<" ";
   }
+  network_file<<"]"<<endl;
   network_file<<"END"<<endl;
 
   network_file<<"ENDFILE"<<endl;
+  network_file.close();
   return true;
 }
 bool Feed_forward::load_network(string full_path){
+  string weight_data;
+  string bias_data;
+  string activation_function_name;
+  //Number of hidden layers
+  string number_hl;
+  //Nodes per layer
+  string npl;
+
+  ifstream network_file;
+  try{
+    network_file.open(full_path);
+  }catch(e){
+    return false;
+  }
+  network_file>>data;
+  network_file.close();
+
+  for(int i=0; i<sizeof(data); i++){
+    if(data[i:i+9]=="WEIGHTS\n"){
+      for(int j=i+9; j<sizeof(data[i+9:]); j++){
+        if(data[j:j+3]=="END"){
+          break;
+        }else{
+          weight_data=weight_data+data[j];
+        }
+      }
+    }else if(data[i:i+9]=="BIASSES\n"){
+      for(int j=i+9; j<sizeof(data[i+9:]); j++){
+        if(data[j:j+3]=="END"){
+          break;
+        }else{
+          bias_data=bias_data+data[j];
+        }
+      }
+    }else if(data[i:i+21]=="ACTIVATION FUNCTION: "){
+      for(int j=i+21; j<sizeof(data[i+21:]); j++){
+        if(data[j:j+2]=="\n"){
+          break;
+        }else{
+          activation_function_name=activation_function_name+data[j];
+        }
+      }
+    }else if(data[i:i+19]=="NUM HIDDEN LAYERS: "){
+      for(int j=i+19; j<sizeof(data[i+19:]); j++){
+        if(data[j:j+2]=="\n"){
+          break;
+        }else{
+          number_hl=number_hl+data[j];
+        }
+      }
+    }else if(data[i:i+15]=="NODES PER LAYER\n"){
+      for(int j=i+15; j<sizeof(data[i+15:]); j++){
+        if(data[j:j+3]=="END"){
+          break;
+        }else{
+          npl=npl+data[j];
+        }
+      }
+    }else if(data[i:i+7]=="ENDFILE"){
+      break;
+    }
+  }
+
+
+  string temp[];
+  string delimeter="]]";
+  size_t pos=0;
+  int index=0;
+  string s=weight_data;
+
+  while((pos=s.find(delimeter))!=string::npos){
+    temp[index]=s.substr(0, pos);
+    index++;
+    s.erase(0, pos+delimeter.length());
+  }
+
+
+
+  string temp2[][];
+  delimeter="[";
+  for(int i=0; i<sizeof(temp); i++){
+    pos=1;
+    index=0;
+    while((pos=temp[i].find(delimeter))!=string::npos){
+      temp2[i][index]=temp[i].substr(1, pos);
+      index++;
+      temp[i].erase(1, pos+delimeter.length());
+    }
+  }
+
+  int temp3[][][];
+  for(int i=0; i<sizeof(temp2); i++){
+    temp3[i]={};
+
+    string array_temp=temp2[i][1:-2];
+    string temp4[];
+    pos=0;
+    index=0;
+    delimeter="]";
+    while((pos=array_temp.find(delimeter))!=string::npos){
+      temp4[index]=array_temp.substr(0, pos);
+      index++;
+      array_temp.erase(0, pos+delimeter.length());
+    }
+
+    for(int j=0; j<sizeof(temp4); j++){
+      temp4[j]=temp4[j][1:-2];
+    }
+
+    string temp5[][];
+    delimeter=" ";
+    for(int j=0; j<sizeof(temp4); j++){
+      pos=0;
+      index=0;
+      while((pos=temp4[j].find(delimeter))!=string::npos){
+        temp5[j][index]=temp4[j].substr(0, pos);
+        index++;
+        temp4[j].erase(0, pos+delimeter+length());
+      }
+    }
+
+    int temp6[][];
+    for(int j=0; j<sizeof(temp5); j++){
+      for(int x=0; x<sizeof(temp5[j]); j++){
+        temp6[j][x]=(int)temp[j][x];
+      }
+    }
+
+    for(int j=0; j<sizeof(temp6); j++){
+      temp3[i][j]=temp6[j];
+    }
+  }
+
+  this.weights=temp3;
+
+
+  string temp[];
+  string delimeter="]]";
+  size_t pos=0;
+  int index=0;
+  string s=bias_data;
+
+  while((pos=s.find(delimeter))!=string::npos){
+    temp[index]=s.substr(0, pos);
+    index++;
+    s.erase(0, pos+delimeter.length());
+  }
+
+
+
+  string temp2[][];
+  delimeter="[";
+  for(int i=0; i<sizeof(temp); i++){
+    pos=1;
+    index=0;
+    while((pos=temp[i].find(delimeter))!=string::npos){
+      temp2[i][index]=temp[i].substr(1, pos);
+      index++;
+      temp[i].erase(1, pos+delimeter.length());
+    }
+  }
+
+  int temp3[][][];
+  for(int i=0; i<sizeof(temp2); i++){
+    temp3[i]={};
+
+    string array_temp=temp2[i][1:-2];
+    string temp4[];
+    pos=0;
+    index=0;
+    delimeter="]";
+    while((pos=array_temp.find(delimeter))!=string::npos){
+      temp4[index]=array_temp.substr(0, pos);
+      index++;
+      array_temp.erase(0, pos+delimeter.length());
+    }
+
+    for(int j=0; j<sizeof(temp4); j++){
+      temp4[j]=temp4[j][1:-2];
+    }
+
+    string temp5[][];
+    delimeter=" ";
+    for(int j=0; j<sizeof(temp4); j++){
+      pos=0;
+      index=0;
+      while((pos=temp4[j].find(delimeter))!=string::npos){
+        temp5[j][index]=temp4[j].substr(0, pos);
+        index++;
+        temp4[j].erase(0, pos+delimeter+length());
+      }
+    }
+
+    int temp6[][];
+    for(int j=0; j<sizeof(temp5); j++){
+      for(int x=0; x<sizeof(temp5[j]); j++){
+        temp6[j][x]=(int)temp[j][x];
+      }
+    }
+
+    for(int j=0; j<sizeof(temp6); j++){
+      temp3[i][j]=temp6[j];
+    }
+  }
+
+  this.biasses=temp3;
+
+
+  this.activation_function=Activation_functions::get_func(activation_function_name);
+  this.num_hiddenlayers=(int)number_hl;
+
+
+  string npl_=npl
+  string temp_npl[];
+  index=0;
+  pos=0;
+
+  while((pos=npl_.find(delimeter))!=string::npos){
+    temp_npl[index]=npl_.substr(0, pos);
+    index++;
+    npl_.erase(0, pos+delimeter.length());
+  }
+
+  int temp_npl2[];
+  for(int i=0; i<sizeof(temp_npl); i++){
+    if(temp_npl[i]=="]"){break;}
+    temp_npl2[i]=(int)temp_npl[i];
+  }
+  this.nodes_per_layer=temp_npl2;
+
+  this.setup_nodes(this.nodes_per_layer);
   return true;
 }
 

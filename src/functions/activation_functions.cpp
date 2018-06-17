@@ -43,3 +43,10 @@ string get_func_name(float* func){
   else if(func==this.list_of_functions[3]){func_name="softmax";}
   return func_name;
 }
+
+float* get_func(string name){
+  if(name=="sigmoid"){return this.list_of_functions[0];}
+  else if(name=="tanh"){return this.list_of_functions[1];}
+  else if(name=="ReLU"){return this.list_of_functions[2];}
+  else if(name=="softmax"){return this.list_of_functions[3];}
+}
