@@ -361,8 +361,32 @@ bool set_activation_function(float* activation_function){
   return this.set_activation(activation_function);
 }
 
-void Feed_forward::train(float training_data[][2]){
-
+//Write the backpropagation algorithm
+void Feed_forward::train(float training_data[][2][], bool print_result=true, string text_file_path=NULL, string name=NULL){
+  float output[];
+  string result;
+  if(text_file_path!=NULL){
+    if(name==NULL){
+      printf("You have not provided a name for the text file therefore the result will not be recorded. However the network will still run\n");
+      text_file_path=NULL;
+    }
+    ofstream log_file;
+    log_file.open(text_file_path+"/"+name+".nn_log");
+  }
+  if(name!=NULL&&text_file_path==NULL){printf("You have not provided a path for the file therefore the result will not be recorded. However the network will still run\n");}
+  while(true){
+    for(int i=0; i<sizeof(training_data); i++){
+      output=this.use_network(training_data[i][0]);
+      result=this.backpropagation(output);
+    }
+    if(print_result){
+      printf("%s\n", result);
+    }
+    if(text_file_path!=NULL){
+      log_file<<result<<endl;
+    }
+  }
+  if(text_file_path!=NULL){log_file.close();}
 }
 
 float[] Feed_forward::calculate_layer(Node layer[], float inputs[]){

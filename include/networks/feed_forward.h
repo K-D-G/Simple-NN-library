@@ -20,7 +20,7 @@ private:
   int nodes_per_layer[];
 
   //Input and then output data
-  float training_data[][2];
+  float training_data[][2][];
 protected:
   bool set_weights(float weights[][][]);
   bool set_biasses(float biasses[][][]);
@@ -32,7 +32,7 @@ public:
   Feed_forward(bool new_network=true, int nodes_per_layer[]=NULL, float* activation_function=NULL);
   ~Feed_forward();
 
-  void train(float training_data[][2]);
+  void train(float training_data[][2][], bool print_result=true, string text_file_path=NULL);
   bool save_network(string path);
   bool load_network(string path);
   bool set_activation_function(float* activation_function);
