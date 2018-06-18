@@ -37,7 +37,8 @@ public:
   bool load_network(string path);
   bool set_activation_function(float* activation_function);
   void setup_nodes(int nodes_per_layer[]);
-  float use_network(float inputs[]);
+  float[] calculate_layer(networks::Node layer[], float inputs[]);
+  float[] use_network(float inputs[]);
 };
 
 

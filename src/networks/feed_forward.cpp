@@ -365,6 +365,17 @@ void Feed_forward::train(float training_data[][2]){
 
 }
 
-float Feed_forward::use_network(float inputs[]){
-  
+float[] Feed_forward::calculate_layer(Node layer[], float inputs[]){
+  float outputs[];
+  for(int i=0; i<sizeof(layer); i++){
+    outputs[i]=layer[i].calculate(inputs);
+  }
+  return outputs;
+}
+
+float[] Feed_forward::use_network(float inputs[]){
+  for(int x=0; x<sizeof(this.nodes); x++){
+    inputs=this.calculate_layer(this.nodes[i], inputs);
+  }
+  return inputs;
 }
