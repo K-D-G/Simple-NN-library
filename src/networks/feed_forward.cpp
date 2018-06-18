@@ -22,18 +22,21 @@ Feed_forward::~Feed_forward(){
 }
 
 //Protected stuff so make friend classes with back propagation and stuff
-/*REWRITE SET_WEIGHTS AND SET_BIASES SO THEY WORK WITH ARRAY DEPTH*/
 bool Feed_forward::set_weights(float weights[][][]){
   this.weights=weights;
   for(int i=0; i<sizeof(this.nodes); i++){
-    this.nodes[i].set_weights(this.weights[i]);
+    for(int j=0; j<sizeof(this.nodes[i]); j++){
+      this.nodes[i][j].set_weights(this.weights[i][j]);
+    }
   }
   return true;
 }
 bool Feed_forward::set_biasses(float biasses[][][]){
   this.biasses=biasses;
   for(int i=0; i<sizeof(this.nodes); i++){
-    this.nodes[i].set_biasses(this.biasses[i]);
+    for(int j=0; j<sizeof(this.nodes[i]); j++){
+      this.nodes[i][j].set_biasses(this.biasses[i][j]);
+    }
   }
   return true;
 }
@@ -72,10 +75,6 @@ void Feed_forward::setup_nodes(int nodes_per_layer[]){
 }
 
 //Public stuff
-void Feed_forward::train(float training_data[][2]){
-
-}
-
 bool Feed_forward::save_network(string path, string name){
   ofstream network_file;
   network_file.open(path+"/"+name+".nn");
@@ -362,6 +361,10 @@ bool set_activation_function(float* activation_function){
   return this.set_activation(activation_function);
 }
 
-float Feed_forward::use_network(float inputs[]){
+void Feed_forward::train(float training_data[][2]){
 
+}
+
+float Feed_forward::use_network(float inputs[]){
+  
 }
