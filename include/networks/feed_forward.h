@@ -32,10 +32,13 @@ public:
   Feed_forward(bool new_network=true, int nodes_per_layer[]=NULL, float* activation_function=NULL);
   ~Feed_forward();
 
-  void train(float training_data[][2][], bool print_result=true, string text_file_path=NULL);
   bool save_network(string path);
   bool load_network(string path);
+
   bool set_activation_function(float* activation_function);
+
+  std::string backpropagation(float output[]);
+  void train(float training_data[][2][], bool print_result=true, string text_file_path=NULL);
   void setup_nodes(int nodes_per_layer[]);
   float[] calculate_layer(networks::Node layer[], float inputs[]);
   float[] use_network(float inputs[]);

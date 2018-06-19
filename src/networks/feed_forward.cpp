@@ -361,7 +361,10 @@ bool set_activation_function(float* activation_function){
   return this.set_activation(activation_function);
 }
 
-//Write the backpropagation algorithm
+//Write once finished with the optimisers
+string Feed_forward::backpropagation(float output[]){
+
+}
 void Feed_forward::train(float training_data[][2][], bool print_result=true, string text_file_path=NULL, string name=NULL){
   float output[];
   string result;
