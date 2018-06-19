@@ -6,3 +6,9 @@ SET THIS FLAG WHEN COMPILING EACH OBJECT FILE
 
 WRITE OPTIMISERS AND MAKE SURE THEY ARE INCLUDED IN
 THE CODE FOR THE DIFFERENT TYPES OF NETWORKS AS AN ARGUMENT
+
+WHEN WRITING THE LOSS/COST FUNCTIONS MAKE SURE
+TO INCLUDE THE FUNCTIONS MENTIONED AT BOTH
+THESE WEBSITES:
+https://stats.stackexchange.com/questions/154879/a-list-of-cost-functions-used-in-neural-networks-alongside-applications
+https://medium.com/data-science-group-iitr/loss-functions-and-optimization-algorithms-demystified-bb92daff331c
