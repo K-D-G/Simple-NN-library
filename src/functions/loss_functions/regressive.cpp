@@ -4,6 +4,7 @@ using namespace std;
 using namespace functions;
 using namespace loss_functions;
 using namespace the_network;
+using namespace further_maths;
 
 string Regressive::get_func_name(float[]* func){
   string func_name="unknown";
@@ -18,12 +19,10 @@ float[]* Regressive::get_func(string name){
   else if(name=="smooth absolute error"){return this.list_of_functions[2];}
 }
 
-float[] Regressive::mean_square_error(float output[], float expected_output[]){
-
+float Regressive::mean_square_error(float output[], float expected_output[]){
+  return mean(square(subtract_arrays(output, expected_output)));
 }
-float[] Regressive::absolute_error(float output[], float expected_output[]){
 
-}
-float[] Regressive::smooth_absolute_error(float output[], float expected_output[]){
-
+float Regressive::absolute_error(float output[], float expected_output[]){
+  return mean(array_abs(subtract_arrays(output, expected_output)));
 }
