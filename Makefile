@@ -20,3 +20,7 @@ commit:
 	git add .
 	git commit -m "$(m)"
 	git push
+
+sort_conflicts:
+	git stash
+	git pull
