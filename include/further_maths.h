@@ -2,12 +2,24 @@
 #define __FURTHER_MATHS_H
 #include <cmath>
 
+float epsilon(){
+  return 1e-7;
+}
+
 float sum(float array[]){
   float total=0;
   for(int i=0; i<sizeof(array); i++){
     total+=array[i];
   }
   return total;
+}
+
+float[] add_constant(float arr[], float constant){
+  float result[];
+  for(int i=0; i<sizeof(arr); i++){
+    result[i]=arr[i]+constant;
+  }
+  return result;
 }
 
 float[] subtract_arrays(float arr[], float arr2[]){
@@ -56,6 +68,14 @@ float mean(float arr[]){
     total+=arr[i];
   }
   return total/divide_operand;
+}
+
+float[] divide_arrays(float arr[], float arr2[]){
+  float result[];
+  for(int i=0; i<sizeof(arr); i++){
+    result[i]=arr[i]/arr2[i];
+  }
+  return result;
 }
 
 float[] array_log(float arr[]){
