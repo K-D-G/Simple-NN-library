@@ -42,4 +42,13 @@ float mean(float arr[]){
   }
   return total/divide_operand;
 }
+
+float[] array_log(float arr[]){
+  float result[sizeof(arr)];
+  for(int i=0; i<sizeof(arr); i++){
+    result[i]=std::log(arr[i]);
+  }
+  return result;
+}
+
 #endif

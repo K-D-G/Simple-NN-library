@@ -26,3 +26,11 @@ float Regressive::mean_square_error(float output[], float expected_output[]){
 float Regressive::absolute_error(float output[], float expected_output[]){
   return mean(array_abs(subtract_arrays(output, expected_output)));
 }
+
+float Regressive::mean_absolute_percentage_error(float output[], float expected_output[]){
+  return 100*mean(array_abs(subtract_arrays(expected_output, output))/array_abs());
+}
+
+float Regressive::mean_squared_logarithmic_error(float output[], float expected_output){
+  return mean(square(subtract_arrays(array_log(output), array_log(expected_output))));
+}
