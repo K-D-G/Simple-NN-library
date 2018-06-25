@@ -41,9 +41,12 @@ float Classification::negative_log_likelihood(float output[], float expected_out
   }
   return result;
 }
+
+/*
 float Classification::margin_classifier(float output[], float expected_output[]){
 
 }
 float Classification::soft_margin_classifier(float output[], float expected_output[]){
 
 }
+*/

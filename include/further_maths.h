@@ -18,6 +18,13 @@ float[] subtract_arrays(float arr[], float arr2[]){
   return result;
 }
 
+float[] subtract_constant(float arr[], constant){
+  float result[];
+  for(int i=0; i<sizeof(arr); i++){
+    result[i]=arr[i]-constant;
+  }
+}
+
 float[] square_array(float arr[]){
   float result[];
   for(int i=0; i<sizeof(arr); i++){
@@ -30,6 +37,14 @@ float[] array_abs(float arr[]){
   float result[];
   for(int i=0; i<sizeof(arr); i++){
     result[i]=std::abs(arr[i]);
+  }
+  return result;
+}
+
+float[] multiply_arrays(float arr[], float arr2[]){
+  float result[];
+  for(int i=0; i<sizeof(arr); i++){
+    result[i]=arr[i]*arr2[i];
   }
   return result;
 }
@@ -51,4 +66,30 @@ float[] array_log(float arr[]){
   return result;
 }
 
+float[] maximum(float arr[][]){
+  float result[];
+  for(int i=0; i<sizeof(arr); i++){
+    for(int j=0; j<sizeof(arr[i]); j++){
+      if(result[j]<arr[i][j]){result[j]=arr[i][j];}
+    }
+  }
+  return result;
+}
+
+float max(float arr[]){
+  float result=0;
+  for(int i=0; i<sizeof(arr); i++){
+    result*=(1-arr[i]);
+  }
+
+  return 1-result;
+}
+
+float[] make_array(float number, int size){
+  float result[size];
+  for(int i=0; i<size; i++){
+    result[i]=number;
+  }
+  return result;
+}
 #endif
