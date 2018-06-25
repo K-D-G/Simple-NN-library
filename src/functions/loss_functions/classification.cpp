@@ -21,10 +21,25 @@ float* Classification::get_func(string name){
 }
 
 float Classification::binary_cross_entropy(float output[], float expected_output[]){
+  //Algorithm=-sum_i(x[i]*log(z[i])+(1-x[i])*log(1-z[i]))
+  //x=output z=expected
+  float x[]=output;
+  float z[]=expected_output;
 
+  float result=0;
+
+  for(int i=0; i<sizeof(x); i++){
+    result+=x[i]*log(z[i])+(1-x[i])*log(1-z[i]);
+  }
+  return -result;
 }
 float Classification::negative_log_likelihood(float output[], float expected_output[]){
-
+  //Is this right?
+  float result=0;
+  for(int i=0; i<sizeof(expected_output); i++){
+    result+=-log(expected_output[i]);
+  }
+  return result;
 }
 float Classification::margin_classifier(float output[], float expected_output[]){
 

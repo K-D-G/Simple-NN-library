@@ -1,6 +1,7 @@
 #ifndef __FUNCTIONS__LOSS_FUNCTIONS__CLASSIFICATION_H
 #define __FUNCTIONS__LOSS_FUNCTIONS__CLASSIFICATION_H
 #include <iostream>
+#include <math.h>
 #include <further_maths.h>
 
 class Classification{
