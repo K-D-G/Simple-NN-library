@@ -21,8 +21,22 @@ float* Other_functions::get_func(string name){
 }
 
 float Other_functions::log_cosh(float output[], float expected_output[]){
-
+  return mean(this.actual_cosh(subtract_arrays(output, expected_output)));
 }
+
+float[] Other_functions::actual_cosh(float x[]){
+  return sum(x, subtract_arrays(this._softplus(multiply_arrays(make_array(-2), x)), array_log(make_array(2))));
+}
+
+float[] Other_functions::_softplus(float x[]){
+  float result[];
+
+  for(int i=0; i<sizeof(x); i++){
+    result[i]=ln(1+e**x[i]);
+  }
+  return result;
+}
+
 float Other_functions::kullback_leibler_divergence(float output[], float expected_output[]){
   return sum(multiply_arrays(expected_output, array_log(divide_arrays(expected_output, output))));
 }

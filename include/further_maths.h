@@ -112,4 +112,8 @@ float[] make_array(float number, int size){
   }
   return result;
 }
+
+float ln(float x){
+  log(x);
+}
 #endif
