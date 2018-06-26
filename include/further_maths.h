@@ -116,4 +116,18 @@ float[] make_array(float number, int size){
 float ln(float x){
   log(x);
 }
+
+float sqrt(float x){
+  return x**0.5;
+}
+
+float[][2] zip(float x[], float[y]){
+  float result[sizeof(x)][2];
+  for(int i=0; i<sizeof(x); i++){
+    result[i][0]=x[i];
+    result[i][1]=y[i];
+  }
+  return result;
+}
+
 #endif
