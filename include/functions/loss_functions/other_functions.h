@@ -14,6 +14,9 @@ public:
   float kullback_leibler_divergence(float output[], float expected_output[]);
   float poisson(float output[], float expected_output[]);
   float cosine_proximity(float output[], float expected_output[]);
+
+  float[] actual_cosh(float x[]);
+  float[] _softplus(float x[])
 };
 
 #endif
