@@ -24,7 +24,7 @@ protected:
 public:
   Adam(float learning_rate=0.001, float beta=0.9, float beta2=0.999, float decay=0);
   ~Adam();
-  update(float cost, float params[]=0);
+  float[][2] update(float cost, float params[]=0);
   struct* get_variables();
 };
 #endif

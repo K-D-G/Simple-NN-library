@@ -19,7 +19,7 @@ Adam::~Adam(){
 
 }
 
-Adam::update(float cost, float params[]=0){
+float[][2] Adam::update(float cost, float params[]=0){
   float updates[][2];
   gradients=make_array(0, (int)cost);
   float x=0;

@@ -130,4 +130,22 @@ float[][2] zip(float x[], float[y]){
   return result;
 }
 
+float[][2][] dot_product(float batch[][2][], float error[]){
+  float result[][2][];
+  for(int i=0; i<sizeof(batch); i++){
+    for(int j=0; j<sizeof(batch[i]); j++){
+      for(int x=0; x<sizeof(batch[i][j]); x++){
+        result[i][j][x]=batch[i][j][x]*error[x];
+      }
+    }
+  }
+  return result;
+}
+
+int constrain(int x, int y, int z){
+  if(x<y){return y;}
+  else if(x>z){return z;}
+  return x;
+}
+
 #endif
