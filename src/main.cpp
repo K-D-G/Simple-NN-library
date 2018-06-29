@@ -31,12 +31,6 @@ using namespace networks;
 using namespace std;
 using namespace util;
 
-char* __version__="1.0";
-char* __author__="K-D-G (https://k-d-g.github.io/ or https://github.com/K-D-G)";
-string[][][] __all__=get_all();
-
-give_util_data(__version__, __author__, __all__);
-
 string[][][] get_all(){
   int index=0;
   int type=0;
@@ -75,3 +69,10 @@ string[][][] get_all(){
 
   all[type][i]=_get_function_names(Feed_forward);
 }
+
+
+char* __version__="1.0";
+char* __author__="K-D-G (https://k-d-g.github.io/ or https://github.com/K-D-G)";
+string[][][] __all__=get_all();
+
+give_util_data(__version__, __author__, __all__);
