@@ -35,12 +35,13 @@ float[] subtract_constant(float arr[], constant){
   for(int i=0; i<sizeof(arr); i++){
     result[i]=arr[i]-constant;
   }
+  return result;
 }
 
 float[] square_array(float arr[]){
   float result[];
   for(int i=0; i<sizeof(arr); i++){
-    result[i]=arr**2;
+    result[i]=arr[i]**2;
   }
   return result;
 }
@@ -81,7 +82,7 @@ float[] divide_arrays(float arr[], float arr2[]){
 float[] array_log(float arr[]){
   float result[sizeof(arr)];
   for(int i=0; i<sizeof(arr); i++){
-    result[i]=std::log(arr[i]);
+    result[i]=std::log10(arr[i]);
   }
   return result;
 }

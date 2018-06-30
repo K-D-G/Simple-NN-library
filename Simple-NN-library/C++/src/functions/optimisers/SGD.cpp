@@ -25,7 +25,7 @@ float SGD::_get_gradient(float error, float batch[][2][]){
 }
 
 float[][2][]SGD::_new_random_batch(int batch_size, bool from_this_data=true){
-  if(sizeof(this.data)>=batch_size){
+  if(sizeof(this.data)<=batch_size){
     return {{{0, 0}}, {{0, 0}}};
   }
 
