@@ -403,7 +403,7 @@ float[] Feed_forward::calculate_layer(Node layer[], float inputs[]){
 
 float[] Feed_forward::use_network(float inputs[]){
   for(int x=0; x<sizeof(this.nodes); x++){
-    inputs=this.calculate_layer(this.nodes[i], inputs);
+    inputs=this.calculate_layer(this.nodes[x], inputs);
   }
   return inputs;
 }

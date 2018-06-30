@@ -139,12 +139,143 @@ class Feed_forward:
             elif data[i:i+7]=="ENDFILE":
                 break
 
+#               Fix this as C++ code was used that may not be accurate 
+#------------------------------------------------------------
         temp=[]
         delimeter="]]"
         pos=0
         index=0
         s=weight_data
-        #Finish
+
+        while (pos=s.find(delimeter))!=-1:
+            temp[index]=s.substr(0, pos)
+            index+=1
+            s.erase(0, pos+len(delimeter))
+
+        temp2=[]
+        delimeter='['
+        for i in range(len(temp)):
+            pos=1
+            index=0
+            while (pos=temp[i].find(delimeter))!=-1:
+                temp2[i][index]=temp[i].substr(1, pos)
+                index+=1
+                temp[i].erase(1, pos+len(delimeter))
+
+        temp3=[]
+        for i in range(len(temp2)):
+            temp3[i]=[]
+
+            array_temp=temp2[i][1:-2]
+            temp4=[]
+            pos=0
+            index=0
+            delimeter="]"
+            while (pos=array_temp.find(delimeter))!=-1:
+                temp4[index]=array_temp.substr(0, pos)
+                index+=1
+                array_temp.erase(0, pos+len(delimeter))
+
+            for j in range(len(temp4)):
+                temp4[j]=temp4[j][1:-2]
+
+            temp5=[]
+            delimeter=" "
+            for j in range(len(temp4)):
+                pos=0
+                index=0
+                while (pos=temp4[j].find(delimeter))!=-1:
+                    temp5[j][index]=temp4[j].substr(0, pos)
+                    index+=1
+                    temp4[j].erase(0, pos+len(delimeter))
+
+            temp6=[]
+            for j in range(len(temp5)):
+                for x in range(len(temp5[i])):
+                    temp6[j][x]=int(temp[j][x])
+
+            for j in range(len(temp6)):
+                temp3[i][j]=temp6[j]
+        self.weights=temp3
+
+        temp=[]
+        delimeter="]]"
+        pos=0
+        index=0
+        s=bias_data
+
+        while (pos=s.find(delimeter))!=-1:
+            temp[index]=s.substr(0, pos)
+            index+=1
+            s.erase(0, pos+len(delimeter))
+
+        temp2=[]
+        delimeter='['
+        for i in range(len(temp)):
+            pos=1
+            index=0
+            while (pos=temp[i].find(delimeter))!=-1:
+                temp2[i][index]=temp[i].substr(1, pos)
+                index+=1
+                temp[i].erase(1, pos+len(delimeter))
+
+        temp3=[]
+        for i in range(len(temp2)):
+            temp3[i]=[]
+
+            array_temp=temp2[i][1:-2]
+            temp4=[]
+            pos=0
+            index=0
+            delimeter="]"
+            while (pos=array_temp.find(delimeter))!=-1:
+                temp4[index]=array_temp.substr(0, pos)
+                index+=1
+                array_temp.erase(0, pos+len(delimeter))
+
+            for j in range(len(temp4)):
+                temp4[j]=temp4[j][1:-2]
+
+            temp5=[]
+            delimeter=" "
+            for j in range(len(temp4)):
+                pos=0
+                index=0
+                while (pos=temp4[j].find(delimeter))!=-1:
+                    temp5[j][index]=temp4[j].substr(0, pos)
+                    index+=1
+                    temp4[j].erase(0, pos+len(delimeter))
+
+            temp6=[]
+            for j in range(len(temp5)):
+                for x in range(len(temp5[i])):
+                    temp6[j][x]=int(temp[j][x])
+
+            for j in range(len(temp6)):
+                temp3[i][j]=temp6[j]
+        self.biasses=temp3
+
+        self.activation_function=Activation_functions.get_func(activation_function_name)
+        self.num_hiddenlayers=int(number_hl)
+
+        npl_=npl
+        temp_npl=[]
+        index=0
+        pos=0
+
+        while (pos=npl_.find(delimeter))!=-1:
+            temp_npl[index]=npl_.substr(0, pos)
+            index+=1
+            npl_.erase(0, pos+len(delimeter))
+
+        temp_npl2=[]
+        for i in range(len(temp_npl)):
+            if temp_npl[i]=="]":break
+            temp_npl2[i]=int(temp_npl[i])
+        self.nodes_per_layer=temp_npl2
+#------------------------------------------------------------
+        self.setup_nodes(self.nodes_per_layer)
+        return True
 
     def backpropagation(self, output):
         pass
@@ -159,7 +290,25 @@ class Feed_forward:
             if name==None:
                 print("You have not provided a name for the text file therefore the result will not be recorded. However the network will still run\n")
                 text_file_path=None
-            else:log_file=open(text_file_path+"/"+name+".nn_log")
+            else:
+                log_file=open(text_file_path+"/"+name+".nn_log", 'w')
         while True:
-            #Continue
-            pass
+            for i in training_data:
+                output=self.use_network(i[0])
+                result=self.backpropagation(output)
+            if print_result:
+                print(result)
+            if text_file_path!=None:
+                log_file.write(result)
+        if text_file_path!=None:log_file.close()
+
+    def calculate_layer(self, layer, inputs):
+        outputs=[]
+        for i in layer:
+            outputs.append(i.calculate(inputs))
+        return outputs
+
+    def use_network(self, inputs):
+        for i in self.nodes:
+            inputs=self.calculate_layer(self.nodes[i], inputs)
+        return inputs
