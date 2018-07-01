@@ -1,4 +1,4 @@
-from further_maths import*
+from Simple_NN_library.python.further_maths import*
 
 class Adam:
     def __init__(self, learning_rate=0.001, beta=0.9, beta2=0.999, decay=0):

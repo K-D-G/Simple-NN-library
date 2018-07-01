@@ -1,5 +1,5 @@
-from networks import*
-from functions import*
+from Simple_NN_library.python.networks import*
+from Simple_NN_library.python.functions import*
 import random
 
 class Feed_forward:

@@ -1,5 +1,5 @@
-from further_maths import*
-from functions.activation_functions import*
+from Simple_NN_library.python.further_maths import*
+from Simple_NN_library.python.functions.activation_functions import*
 
 class Node:
     def __init__(self, weights, biasses, activation_function):

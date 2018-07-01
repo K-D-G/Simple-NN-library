@@ -1,18 +1,18 @@
 
-from further_maths import*
+from Simple_NN_library.python.further_maths import*
 
-from functions.loss_functions.classification import*
-from functions.loss_functions.hinge import*
-from functions.loss_functions.other_functions import*
-from functions.loss_functions.regressive import*
+from Simple_NN_library.python.functions.loss_functions.classification import*
+from Simple_NN_library.python.functions.loss_functions.hinge import*
+from Simple_NN_library.python.functions.loss_functions.other_functions import*
+from Simple_NN_library.python.functions.loss_functions.regressive import*
 
-from functions.optimisers.adam import*
-from functions.optimisers.SGD import*
+from Simple_NN_library.python.functions.optimisers.adam import*
+from Simple_NN_library.python.functions.optimisers.SGD import*
 
-from functions.activation_functions import*
+from Simple_NN_library.python.functions.activation_functions import*
 
-from networks.node import*
-from networks.feed_forward import*
+from Simple_NN_library.python.networks.node import*
+from Simple_NN_library.python.networks.feed_forward import*
 
 _export=set(['__version__', '__author__'])
 __version__="1.0"
