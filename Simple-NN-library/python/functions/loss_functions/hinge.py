@@ -1,9 +1,9 @@
-from .further_maths import*
+from further_maths import*
 
 class Hinge:
-    list_of_functions=[self.hinge, self.squared_hinge, self.categorical_hinge]
 
     def get_func_name(self, func):
+        self.list_of_functions=[self.hinge, self.squared_hinge, self.categorical_hinge]
         func_name="unknown"
         if func==self.list_of_functions[0]:func_name="hinge"
         elif func==self.list_of_functions[1]:func_name="squared hinge"
@@ -11,6 +11,7 @@ class Hinge:
         return func_name
 
     def get_func(self, name):
+        self.list_of_functions=[self.hinge, self.squared_hinge, self.categorical_hinge]
         if name=="hinge":return self.list_of_functions[0]
         elif name=="squared hinge":return self.list_of_functions[1]
         elif name=="categorical hinge":return self.list_of_functions[2]

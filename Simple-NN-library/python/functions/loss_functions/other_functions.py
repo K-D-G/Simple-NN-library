@@ -1,17 +1,18 @@
-from .further_maths import*
+from further_maths import*
 
 class Other_functions:
-    list_of_functions=[self.log_cosh, self.kullback_leibler_divergence, self.poisson, self.cosine_proximity]
 
     def get_func_name(self, func):
+        self.list_of_functions=[self.log_cosh, self.kullback_leibler_divergence, self.poisson, self.cosine_proximity]
         func_name="unknown"
-        if func===self.list_of_functions[0]:func_name="log cosh"
-        elif func===self.list_of_functions[1]:func_name="kullback leibler divergence"
-        elif func===self.list_of_functions[2]:func_name="poisson"
-        elif func===self.list_of_functions[3]:func_name="cosine proximity"
+        if func==self.list_of_functions[0]:func_name="log cosh"
+        elif func==self.list_of_functions[1]:func_name="kullback leibler divergence"
+        elif func==self.list_of_functions[2]:func_name="poisson"
+        elif func==self.list_of_functions[3]:func_name="cosine proximity"
         return func_name
 
     def get_func(self, name):
+        self.list_of_functions=[self.log_cosh, self.kullback_leibler_divergence, self.poisson, self.cosine_proximity]
         if name=="log cosh":return self.list_of_functions[0]
         elif name=="kullback leibler divergence":return self.list_of_functions[1]
         elif name=="poisson":return self.list_of_functions[2]
@@ -21,7 +22,7 @@ class Other_functions:
         return mean(self.actual_cosh(subtract_arrays(output, expected_output)))
 
     def actual_cosh(self, x):
-        return sum([x, subtract_arrays(this._softplus(multiply_arrays(make_array(-2, len(x)), x)), array_log(make_array(2, len(x)))])
+        return sum([x, subtract_arrays(this._softplus(multiply_arrays(make_array(-2, len(x)), x)), array_log(make_array(2, len(x))))])
 
     def _softplus(self, x):
         result=[]

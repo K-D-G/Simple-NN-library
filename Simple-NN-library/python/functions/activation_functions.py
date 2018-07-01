@@ -1,10 +1,10 @@
-from .further_maths import*
+from further_maths import*
 
 class Activation_functions:
-    list_of_functions=[self.sigmoid, self.tanh, self.ReLU, self.softmax]
 
     def get_func_name(self, func):
-         func_name="unknown"
+        self.list_of_functions=[self.sigmoid, self.tanh, self.ReLU, self.softmax]
+        func_name="unknown"
         if func==self.list_of_functions[0]:func_name="sigmoid"
         elif func==self.list_of_functions[1]:func_name="tanh"
         elif func==self.list_of_functions[2]:func_name="ReLU"
@@ -12,6 +12,7 @@ class Activation_functions:
         return func_name
 
     def get_func(self, name):
+        self.list_of_functions=[self.sigmoid, self.tanh, self.ReLU, self.softmax]
         if name=="sigmoid":return this.list_of_functions[0]
         elif name=="tanh":return this.list_of_functions[1]
         elif name=="ReLU":return this.list_of_functions[2]

@@ -1,4 +1,4 @@
-from .further_maths import*
+from further_maths import*
 from functions.activation_functions import*
 
 class Node:

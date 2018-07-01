@@ -1,4 +1,4 @@
-from .further_maths import*
+from further_maths import*
 
 class AdaGrad:
     def __init__(self):

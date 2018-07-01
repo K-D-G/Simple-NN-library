@@ -1,4 +1,4 @@
-from .further_maths import*
+from further_maths import*
 import random
 
 class SGD:
@@ -9,7 +9,7 @@ class SGD:
     def update(self, error, weight_array):
         updates=[]
         batch=_new_random_batch(256)
-        gradient=_get_gradient(errorm batch)
+        gradient=_get_gradient(error, batch)
         updates=add_constant(weight_array, (-self.alpha*gradient))
         return updates
 
@@ -32,5 +32,5 @@ class SGD:
     def get_variables():
         return {
             'data':self.data,
-            'alpha', self.alpha
+            'alpha': self.alpha
         }

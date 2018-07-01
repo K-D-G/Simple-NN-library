@@ -1,5 +1,5 @@
-from .networks import Node
-from .functions import Activation_functions
+from networks import*
+from functions import*
 import random
 
 class Feed_forward:
@@ -139,7 +139,7 @@ class Feed_forward:
             elif data[i:i+7]=="ENDFILE":
                 break
 
-#               Fix this as C++ code was used that may not be accurate 
+#               Fix this as C++ code was used that may not be accurate
 #------------------------------------------------------------
         temp=[]
         delimeter="]]"
@@ -147,7 +147,8 @@ class Feed_forward:
         index=0
         s=weight_data
 
-        while (pos=s.find(delimeter))!=-1:
+        while s.find(delimeter)!=-1:
+            pos=s.find(delimeter)
             temp[index]=s.substr(0, pos)
             index+=1
             s.erase(0, pos+len(delimeter))
@@ -157,7 +158,8 @@ class Feed_forward:
         for i in range(len(temp)):
             pos=1
             index=0
-            while (pos=temp[i].find(delimeter))!=-1:
+            while temp[i].find(delimeter)!=-1:
+                pos=temp[i].find(delimeter)
                 temp2[i][index]=temp[i].substr(1, pos)
                 index+=1
                 temp[i].erase(1, pos+len(delimeter))
@@ -171,7 +173,8 @@ class Feed_forward:
             pos=0
             index=0
             delimeter="]"
-            while (pos=array_temp.find(delimeter))!=-1:
+            while array_temp.find(delimeter)!=-1:
+                pos=array_temp.find(delimeter)
                 temp4[index]=array_temp.substr(0, pos)
                 index+=1
                 array_temp.erase(0, pos+len(delimeter))
@@ -184,7 +187,8 @@ class Feed_forward:
             for j in range(len(temp4)):
                 pos=0
                 index=0
-                while (pos=temp4[j].find(delimeter))!=-1:
+                while temp4[j].find(delimeter)!=-1:
+                    pos=temp4[j].find(delimeter)
                     temp5[j][index]=temp4[j].substr(0, pos)
                     index+=1
                     temp4[j].erase(0, pos+len(delimeter))
@@ -204,7 +208,8 @@ class Feed_forward:
         index=0
         s=bias_data
 
-        while (pos=s.find(delimeter))!=-1:
+        while s.find(delimeter)!=-1:
+            pos=s.find(delimeter)
             temp[index]=s.substr(0, pos)
             index+=1
             s.erase(0, pos+len(delimeter))
@@ -214,7 +219,8 @@ class Feed_forward:
         for i in range(len(temp)):
             pos=1
             index=0
-            while (pos=temp[i].find(delimeter))!=-1:
+            while temp[i].find(delimeter)!=-1:
+                pos=temp[i].find(delimeter)
                 temp2[i][index]=temp[i].substr(1, pos)
                 index+=1
                 temp[i].erase(1, pos+len(delimeter))
@@ -228,7 +234,8 @@ class Feed_forward:
             pos=0
             index=0
             delimeter="]"
-            while (pos=array_temp.find(delimeter))!=-1:
+            while array_temp.find(delimeter)!=-1:
+                pos=array_temp.find(delimeter)
                 temp4[index]=array_temp.substr(0, pos)
                 index+=1
                 array_temp.erase(0, pos+len(delimeter))
@@ -241,7 +248,8 @@ class Feed_forward:
             for j in range(len(temp4)):
                 pos=0
                 index=0
-                while (pos=temp4[j].find(delimeter))!=-1:
+                while temp4[j].find(delimeter)!=-1:
+                    pos=temp4[j].find(delimeter)
                     temp5[j][index]=temp4[j].substr(0, pos)
                     index+=1
                     temp4[j].erase(0, pos+len(delimeter))
@@ -263,7 +271,8 @@ class Feed_forward:
         index=0
         pos=0
 
-        while (pos=npl_.find(delimeter))!=-1:
+        while npl_.find(delimeter)!=-1:
+            pos=npl_.find(delimeter)
             temp_npl[index]=npl_.substr(0, pos)
             index+=1
             npl_.erase(0, pos+len(delimeter))

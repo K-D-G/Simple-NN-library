@@ -1,10 +1,10 @@
-from .further_maths import*
+from further_maths import*
 
 class Regressive:
-    list_of_functions=[self.mean_square_error, self.absolute_error, self.mean_absolute_percentage_error, self.mean_squared_logarithmic_error]
 
     def get_func_name(self, func):
-        string func_name="unknown";
+        self.list_of_functions=[self.mean_square_error, self.absolute_error, self.mean_absolute_percentage_error, self.mean_squared_logarithmic_error]
+        func_name="unknown";
         if func==self.list_of_functions[0]:func_name="mean square error"
         elif func==self.list_of_functions[1]:func_name="absolute error"
         elif func==self.list_of_functions[2]:func_name="mean absolute percentage error"
@@ -12,6 +12,7 @@ class Regressive:
         return func_name
 
     def get_func(self, name):
+        self.list_of_functions=[self.mean_square_error, self.absolute_error, self.mean_absolute_percentage_error, self.mean_squared_logarithmic_error]
         if name=="mean square error":return self.list_of_functions[0]
         elif name=="absolute error":return self.list_of_functions[1]
         elif name=="mean absolute percentage error":return self.list_of_functions[2]
