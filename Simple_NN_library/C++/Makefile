@@ -10,7 +10,7 @@ objects=obj/functions/loss_functions/classification.o \
 
 obj/%.o: src/%.cpp
 	mkdir -p $(@D)
-	g++ -o $@ -c $<
+	g++ -Iinclude -o $@ -c $<
 
 the_network: $(objects)
 	g++ $(objects) -o the_network
