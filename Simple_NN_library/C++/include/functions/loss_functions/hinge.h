@@ -3,16 +3,23 @@
 #include <iostream>
 #include <further_maths.h>
 
-class Hinge{
-public:
-  float* list_of_functions[3]={&this.hinge, &this.squared_hinge, &this.categorical_hinge};
+namespace Simple_NN_library{
+  namespace functions{
+    namespace loss_functions{
+      class Hinge{
+      private:
+        typedef float (*pointer)(float*, float*);
+      public:
 
-  std::string get_func_name(float* func);
-  float* get_func(std::string name);
+        std::string get_func_name(float func(float*, float*));
+        pointer get_func(std::string name);
 
-  float hinge(float output[], float expected_output[]);
-  float squared_hinge(float output[], float expected_output[]);
-  float categorical_hinge(float output[], float expected_output[]);
+        static float hinge(float* output, float* expected_output);
+        static float squared_hinge(float* output, float* expected_output);
+        static float categorical_hinge(float* output, float* expected_output);
 
-};
+      };
+    }
+  }
+}
 #endif
