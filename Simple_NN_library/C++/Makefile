@@ -15,10 +15,15 @@ obj/%.o: src/%.cpp
 the_network: $(objects)
 	g++ $(objects) -o the_network
 
+clear:
+	make clean
+	clear
+
+do:
+	make clear
+	make the_network
+
+
 .PHONY: clean
 clean:
 	rm-rf obj the_network
-do:
-	make clean
-	clear
-	make the_network
