@@ -1,4 +1,4 @@
-from math import*
+import math
 
 def epsilon():
     return 1e-7
@@ -61,7 +61,7 @@ def divide_arrays(arr, arr2):
 def array_log(arr):
     result=[]
     for i in arr:
-        result.append(log10(i))
+        result.append(math.log10(i))
     return result
 
 def maximum(arr):
@@ -84,7 +84,7 @@ def make_array(number, size):
     return result
 
 def ln(x):
-    return log(x)
+    return math.log(x)
 
 def sqrt(x):
     return x**0.5
