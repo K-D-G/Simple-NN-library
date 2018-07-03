@@ -26,8 +26,8 @@ float Other_functions::log_cosh(float* output, float* expected_output){
 }
 
 float* Other_functions::actual_cosh(float* x){
-  float* arr={x, subtract_arrays(_softplus(multiply_arrays(make_array(-2, sizeof(x)), x)), array_log(make_array(2, sizeof(x))))};
-  return arr;
+  //x+_softplus(-2.*x)-log(2.)
+  return subtract_constant(add_arrays(x, _softplus(multiply_constant(x, (float)-2))), log10((float)2));
 }
 
 float* Other_functions::_softplus(float* x){
@@ -43,7 +43,7 @@ float Other_functions::kullback_leibler_divergence(float* output, float* expecte
   return sum(multiply_arrays(expected_output, array_log(divide_arrays(expected_output, output))));
 }
 float Other_functions::poisson(float* output, float* expected_output){
-  return mean(subtract_arrays(output, multiply_arrays(expected_output, array_log(add_constant(output, epsilon())))));
+  return mean(subtract_arrays(output, multiply_arrays(expected_output, array_log(add_constant(output, get_epsilon())))));
 }
 float Other_functions::cosine_proximity(float* output, float* expected_output){
   return -sum(multiply_arrays(expected_output, output));

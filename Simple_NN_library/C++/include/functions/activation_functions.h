@@ -4,19 +4,21 @@
 #include <further_maths.h>
 #include <iostream>
 
+namespace Simple_NN_library{
+  namespace functions{
+    class Activation_functions{
+    private:
+      typedef float* (*pointer)(float*);
+    public:
 
-class Activation_functions{
-public:
-  float* list_of_functions[4]={&this.sigmoid, &this.tanh, &this.ReLU, &this.softmax};
+      std::string get_func_name(float* func(float*));
+      pointer get_func(std::string name);
 
-  std::string get_func_name(float* func);
-  float* get_func(std::string name);
-  float sigmoid(float x);
-  float tanh(float x);
-  float ReLU(float x);
-  float softmax(float inputs[]);
-};
-
-
-
+      static float* sigmoid(float* x);
+      static float* tanh(float* x);
+      static float* ReLU(float* x);
+      static float* softmax(float* inputs);
+    };
+  }
+}
 #endif

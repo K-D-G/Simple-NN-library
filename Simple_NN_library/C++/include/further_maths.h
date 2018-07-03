@@ -1,9 +1,10 @@
 #ifndef __FURTHER_MATHS_H
 #define __FURTHER_MATHS_H
+#include <stdlib.h>
 #include <cmath>
 
 namespace further_maths{
-  float epsilon(){
+  float get_epsilon(){
     return 1e-7;
   }
 
@@ -13,6 +14,14 @@ namespace further_maths{
       total+=array[i];
     }
     return total;
+  }
+
+  float* add_arrays(float* arr, float* arr2){
+    float* result;
+    for(int i=0; i<sizeof(arr); i++){
+      result[i]=arr[i]+arr2[i];
+    }
+    return result;
   }
 
   float* add_constant(float* arr, float constant){
@@ -63,6 +72,14 @@ namespace further_maths{
     return result;
   }
 
+  float* multiply_constant(float* arr, float constant){
+    float* result;
+    for(int i=0; i<sizeof(arr); i++){
+      result[i]=arr[i]*constant;
+    }
+    return result;
+  }
+
   float mean(float* arr){
     int divide_operand=sizeof(arr);
     float total=0;
@@ -76,6 +93,18 @@ namespace further_maths{
     float result[sizeof(arr)];
     for(int i=0; i<sizeof(arr); i++){
       result[i]=arr[i]/arr2[i];
+    }
+    return result;
+  }
+
+  float*** divide_arrays_(float*** arr, float arr2){
+    float*** result;
+    for(int i=0; i<sizeof(arr); i++){
+      for(int j=0; j<sizeof(arr[i]); i++){
+        for(int x=0; x<sizeof(arr[i][j]); x++){
+          result[i][j][x]=arr[i][j][x]/arr2;
+        }
+      }
     }
     return result;
   }
@@ -116,7 +145,7 @@ namespace further_maths{
   }
 
   float ln(float x){
-    log(x);
+    std::log(x);
   }
 
 

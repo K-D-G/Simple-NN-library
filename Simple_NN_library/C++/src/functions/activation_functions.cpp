@@ -1,27 +1,34 @@
 #include <functions/activation_functions.h>
 
-using namespace the_network;
+using namespace Simple_NN_library;
 using namespace functions;
+using namespace further_maths;
 using namespace std;
 
 //Sigmoid
-float Activation_functions::sigmoid(float x){
-  return 1/1+exp(-x);
+float* Activation_functions::sigmoid(float* x){
+  float* arr;
+  arr[0]=1/1+exp(-x[0]);
+  return arr;
 }
 
 //Hyperbolic tangent
-float Activation_functions::tanh(float x){
-  return exp(2*x)+1/exp(2*x)-1;
+float* Activation_functions::tanh(float* x){
+  float* arr;
+  arr[0]=exp(2*x[0])+1/exp(2*x[0])-1;
+  return arr;
 }
 
 //Rectified Linear Units
-float Activation_functions::ReLU(float x){
-  if(x<=0){return (float)0;}
-  else{return x;}
+float* Activation_functions::ReLU(float* x){
+  float* arr;
+  if(x[0]<=0){arr[0]=(float)0;}
+  else{arr=x;}
+  return arr;
 }
 
 //Softmax
-float Activation_functions::softmax(float inputs[]){
+float* Activation_functions::softmax(float* inputs){
   float inputs_exp[sizeof(inputs)];
   for(int i=0; i<sizeof(inputs); i++){
     inputs_exp[i]=exp(inputs[i]);
@@ -35,18 +42,19 @@ float Activation_functions::softmax(float inputs[]){
   }
   return result;
 }
-string get_func_name(float* func){
+
+string Activation_functions::get_func_name(float* func(float*)){
   string func_name="unknown";
-  if(func==this.list_of_functions[0]){func_name="sigmoid";}
-  else if(func==this.list_of_functions[1]){func_name="tanh";}
-  else if(func==this.list_of_functions[2]){func_name="ReLU";}
-  else if(func==this.list_of_functions[3]){func_name="softmax";}
+  if(*func==sigmoid){func_name="sigmoid";}
+  else if(*func==tanh){func_name="tanh";}
+  else if(*func==ReLU){func_name="ReLU";}
+  else if(*func==softmax){func_name="softmax";}
   return func_name;
 }
 
-float* get_func(string name){
-  if(name=="sigmoid"){return this.list_of_functions[0];}
-  else if(name=="tanh"){return this.list_of_functions[1];}
-  else if(name=="ReLU"){return this.list_of_functions[2];}
-  else if(name=="softmax"){return this.list_of_functions[3];}
+Activation_functions::pointer Activation_functions::get_func(string name){
+  if(name=="sigmoid"){return sigmoid;}
+  else if(name=="tanh"){return tanh;}
+  else if(name=="ReLU"){return ReLU;}
+  else if(name=="softmax"){return softmax;}
 }
