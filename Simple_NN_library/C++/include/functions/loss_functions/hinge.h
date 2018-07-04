@@ -1,5 +1,5 @@
-#ifndef __FUNCTIONS__LOSS_FUNCTIONS__HINGE_H
-#define __FUNCTIONS__LOSS_FUNCTIONS__HINGE_H
+#ifndef FUNCTIONS__LOSS_FUNCTIONS__HINGE_H
+#define FUNCTIONS__LOSS_FUNCTIONS__HINGE_H
 #include <iostream>
 #include <further_maths.h>
 

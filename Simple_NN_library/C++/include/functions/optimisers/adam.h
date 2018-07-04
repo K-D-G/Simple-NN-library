@@ -1,5 +1,5 @@
-#ifndef __FUNCTIONS__OPTIMISERS__ADAM_H
-#define __FUNCTIONS__OPTIMISERS__ADAM_H
+#ifndef FUNCTIONS__OPTIMISERS__ADAM_H
+#define FUNCTIONS__OPTIMISERS__ADAM_H
 #include <further_maths.h>
 
 namespace Simple_NN_library{

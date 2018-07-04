@@ -1,9 +1,9 @@
-#ifndef __FUNCTIONS__OPTIMISERS__ADAGRAD_H
-#define __FUNCTIONS__OPTIMISERS__ADAGRAD_H
+#ifndef FUNCTIONS__OPTIMISERS__ADAGRAD_H
+#define FUNCTIONS__OPTIMISERS__ADAGRAD_H
 #include <further_maths.h>
 
 struct AdaGrad_variables{
-  
+
 };
 
 class AdaGrad{

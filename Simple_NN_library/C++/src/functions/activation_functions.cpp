@@ -28,10 +28,10 @@ float* Activation_functions::ReLU(float* x){
 }
 
 //Softmax
-float* Activation_functions::softmax(float* inputs){
-  float inputs_exp[sizeof(inputs)];
-  for(int i=0; i<sizeof(inputs); i++){
-    inputs_exp[i]=exp(inputs[i]);
+float* Activation_functions::softmax(float* x){
+  float inputs_exp[sizeof(x)];
+  for(int i=0; i<sizeof(x); i++){
+    inputs_exp[i]=exp(x[i]);
   }
 
   float sum_inputs_exp=(float)sum(inputs_exp);

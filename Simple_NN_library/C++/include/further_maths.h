@@ -1,6 +1,7 @@
-#ifndef __FURTHER_MATHS_H
-#define __FURTHER_MATHS_H
+#ifndef FURTHER_MATHS_H
+#define FURTHER_MATHS_H
 #include <stdlib.h>
+#include <string>
 #include <cmath>
 
 namespace further_maths{
@@ -176,6 +177,23 @@ namespace further_maths{
     if(x<y){return y;}
     else if(x>z){return z;}
     return x;
+  }
+
+  float*** convert_to_float(int*** x){
+    float*** result;
+    for(int i=0; i<sizeof(x); i++){
+      for(int j=0; j<sizeof(x[i]); j++){
+        for(int c=0; c<sizeof(x[i][j]); c++){
+          result[i][j][c]=(float)x[i][j][c];
+        }
+      }
+    }
+    return result;
+  }
+
+  int convert_to_int(std::string x){
+    std::string::size_type sz;
+    return std::stoi(x, &sz);
   }
 }
 #endif

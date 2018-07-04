@@ -7,13 +7,14 @@ objects=obj/functions/loss_functions/classification.o \
 				obj/functions/activation_functions.o \
 				obj/networks/node.o \
 				obj/networks/feed_forward.o \
+				obj/main.o \
 
 obj/%.o: src/%.cpp
 	mkdir -p $(@D)
 	g++  -w -Iinclude -o $@ -c $<
 
 the_network: $(objects)
-	g++ $(objects) -o the_network
+	g++ dummy_main.cpp -I$(objects) -o the_network
 
 clear:
 	make clean

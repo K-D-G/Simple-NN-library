@@ -1,10 +1,11 @@
-#ifndef __NETWORKS__FEED_FORWARD_H
-#define __NETWORKS__FEED_FORWARD_H
+#ifndef NETWORKS__FEED_FORWARD_H
+#define NETWORKS__FEED_FORWARD_H
 #include <functions/activation_functions.h>
 #include <networks/node.h>
 #include <stdlib.h>
 #include <fstream>
 #include <iostream>
+#include <further_maths.h>
 
 namespace Simple_NN_library{
   namespace networks{
@@ -44,7 +45,7 @@ namespace Simple_NN_library{
 
       std::string backpropagation(float output[]);
       //[][2][]
-      void train(float*** training_data, bool print_result=true, std::string text_file_path=NULL);
+      void train(float*** training_data, bool print_result=true, std::string text_file_path="", std::string name="");
       void setup_nodes(int* nodes_per_layer);
       //1D array for 1st arg 2 pointers for identifying the pointer
       float* calculate_layer(Simple_NN_library::networks::Node** layer, float* inputs);

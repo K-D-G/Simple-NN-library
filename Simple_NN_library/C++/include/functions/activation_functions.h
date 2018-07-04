@@ -1,5 +1,5 @@
-#ifndef __FUNCTIONS__ACTIVATION_FUNCTIONS_H
-#define __FUNCTIONS__ACTIVATION_FUNCTIONS_H
+#ifndef FUNCTIONS__ACTIVATION_FUNCTIONS_H
+#define FUNCTIONS__ACTIVATION_FUNCTIONS_H
 #include <math.h>
 #include <further_maths.h>
 #include <iostream>
@@ -17,7 +17,7 @@ namespace Simple_NN_library{
       static float* sigmoid(float* x);
       static float* tanh(float* x);
       static float* ReLU(float* x);
-      static float* softmax(float* inputs);
+      static float* softmax(float* x);
     };
   }
 }

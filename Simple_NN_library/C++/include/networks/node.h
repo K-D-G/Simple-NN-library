@@ -1,5 +1,5 @@
-#ifndef __NETWORKS__NODE_H
-#define __NETWORKS__NODE_H
+#ifndef NETWORKS__NODE_H
+#define NETWORKS__NODE_H
 #include <further_maths.h>
 #include <functions/activation_functions.h>
 
@@ -17,7 +17,7 @@ namespace Simple_NN_library{
       ~Node();
 
       float formula(float** calculation_array);
-      float* calculate(float* inputs);
+      float calculate(float* inputs);
 
       void set_weights(float* weights);
       void set_biasses(float* biasses);

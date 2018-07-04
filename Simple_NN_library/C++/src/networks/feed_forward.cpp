@@ -3,6 +3,7 @@
 using namespace Simple_NN_library;
 using namespace networks;
 using namespace functions;
+using namespace further_maths;
 using namespace std;
 
 //Public stuff
@@ -11,7 +12,7 @@ Feed_forward::Feed_forward(bool new_network, int* nodes_per_layer, string activa
   if(new_network&&nodes_per_layer!=NULL&&activation_function!=""){
     this->num_hiddenlayers=sizeof(nodes_per_layer);
     this->nodes_per_layer=nodes_per_layer;
-    this->set_activation(activation_function);
+    this->set_activation_function(activation_function);
     this->set_weights_randomly();
     this->set_biasses_randomly();
     this->setup_nodes(nodes_per_layer);
@@ -40,10 +41,12 @@ bool Feed_forward::set_biasses(float*** biasses){
   }
   return true;
 }
+
 bool Feed_forward::set_activation(string activation_function){
   this->activation_function=Activation_functions::get_func(activation_function);
   return true;
 }
+
 
 bool Feed_forward::set_weights_randomly(){
   for(int i=0; i<sizeof(this->weights); i++){
@@ -146,53 +149,55 @@ bool Feed_forward::load_network(string full_path){
   network_file.close();
 
   for(int i=0; i<sizeof(data); i++){
-    if(data[i:i+9]=="WEIGHTS\n"){
-      for(int j=i+9; j<sizeof(data[i+9:]); j++){
-        if(data[j:j+3]=="END"){
+    //data[i:i+9]
+    if(data.substr(i, 9)=="WEIGHTS\n"){
+      //data[i+9:]
+      for(int j=i+9; j<sizeof(data.substr(i+9, data.length()-i+9)); j++){
+        if(data.substr(j, 3)=="END"){
           break;
         }else{
           weight_data=weight_data+data[j];
         }
       }
-    }else if(data[i:i+9]=="BIASSES\n"){
-      for(int j=i+9; j<sizeof(data[i+9:]); j++){
-        if(data[j:j+3]=="END"){
+    }else if(data.substr(i, 9)=="BIASSES\n"){
+      for(int j=i+9; j<sizeof(data.substr(i+9, data.length()-i+9)); j++){
+        if(data.substr(j, 3)=="END"){
           break;
         }else{
           bias_data=bias_data+data[j];
         }
       }
-    }else if(data[i:i+21]=="ACTIVATION FUNCTION: "){
-      for(int j=i+21; j<sizeof(data[i+21:]); j++){
-        if(data[j:j+2]=="\n"){
+    }else if(data.substr(i, 21)=="ACTIVATION FUNCTION: "){
+      for(int j=i+21; j<sizeof(data.substr(i+21, data.length()-i+21)); j++){
+        if(data.substr(j, 2)=="\n"){
           break;
         }else{
           activation_function_name=activation_function_name+data[j];
         }
       }
-    }else if(data[i:i+19]=="NUM HIDDEN LAYERS: "){
-      for(int j=i+19; j<sizeof(data[i+19:]); j++){
-        if(data[j:j+2]=="\n"){
+    }else if(data.substr(i, 19)=="NUM HIDDEN LAYERS: "){
+      for(int j=i+19; j<sizeof(data.substr(i+19, data.length()-i+19)); j++){
+        if(data.substr(j, 2)=="\n"){
           break;
         }else{
           number_hl=number_hl+data[j];
         }
       }
-    }else if(data[i:i+15]=="NODES PER LAYER\n"){
-      for(int j=i+15; j<sizeof(data[i+15:]); j++){
-        if(data[j:j+3]=="END"){
+    }else if(data.substr(i, 15)=="NODES PER LAYER\n"){
+      for(int j=i+15; j<sizeof(data.substr(i+15, data.length()-i+15)); j++){
+        if(data.substr(j, 3)=="END"){
           break;
         }else{
           npl=npl+data[j];
         }
       }
-    }else if(data[i:i+7]=="ENDFILE"){
+    }else if(data.substr(i, 7)=="ENDFILE"){
       break;
     }
   }
 
 
-  string temp[];
+  string* temp;
   string delimeter="]]";
   size_t pos=0;
   int index=0;
@@ -206,7 +211,7 @@ bool Feed_forward::load_network(string full_path){
 
 
 
-  string temp2[][];
+  string** temp2;
   delimeter="[";
   for(int i=0; i<sizeof(temp); i++){
     pos=1;
@@ -218,12 +223,12 @@ bool Feed_forward::load_network(string full_path){
     }
   }
 
-  int temp3[][][];
+  int*** temp3;
   for(int i=0; i<sizeof(temp2); i++){
-    temp3[i]={};
+    //temp3[i]={};
 
-    string array_temp=temp2[i][1:-2];
-    string temp4[];
+    string array_temp=temp2[i]->substr(1, temp2[i]->length()-2);
+    string* temp4;
     pos=0;
     index=0;
     delimeter="]";
@@ -234,10 +239,10 @@ bool Feed_forward::load_network(string full_path){
     }
 
     for(int j=0; j<sizeof(temp4); j++){
-      temp4[j]=temp4[j][1:-2];
+      temp4[j]=temp4[j].substr(1, temp4[i].length()-2);
     }
 
-    string temp5[][];
+    string** temp5;
     delimeter=" ";
     for(int j=0; j<sizeof(temp4); j++){
       pos=0;
@@ -245,11 +250,11 @@ bool Feed_forward::load_network(string full_path){
       while((pos=temp4[j].find(delimeter))!=string::npos){
         temp5[j][index]=temp4[j].substr(0, pos);
         index++;
-        temp4[j].erase(0, pos+delimeter+length());
+        temp4[j].erase(0, pos+delimeter.length());
       }
     }
 
-    int temp6[][];
+    int** temp6;
     for(int j=0; j<sizeof(temp5); j++){
       for(int x=0; x<sizeof(temp5[j]); j++){
         temp6[j][x]=(int)temp[j][x];
@@ -261,14 +266,14 @@ bool Feed_forward::load_network(string full_path){
     }
   }
 
-  this->weights=temp3;
+  this->weights=convert_to_float(temp3);
 
 
-  string temp[];
-  string delimeter="]]";
-  size_t pos=0;
-  int index=0;
-  string s=bias_data;
+  //string temp[];
+  delimeter="]]";
+  pos=0;
+  index=0;
+  s=bias_data;
 
   while((pos=s.find(delimeter))!=string::npos){
     temp[index]=s.substr(0, pos);
@@ -278,7 +283,7 @@ bool Feed_forward::load_network(string full_path){
 
 
 
-  string temp2[][];
+  //string** temp2;
   delimeter="[";
   for(int i=0; i<sizeof(temp); i++){
     pos=1;
@@ -290,12 +295,12 @@ bool Feed_forward::load_network(string full_path){
     }
   }
 
-  int temp3[][][];
+  //int** temp3;
   for(int i=0; i<sizeof(temp2); i++){
-    temp3[i]={};
+    //temp3[i]={};
 
-    string array_temp=temp2[i][1:-2];
-    string temp4[];
+    string array_temp=temp2[i]->substr(1, temp2[i]->length()-2);
+    string* temp4;
     pos=0;
     index=0;
     delimeter="]";
@@ -306,10 +311,10 @@ bool Feed_forward::load_network(string full_path){
     }
 
     for(int j=0; j<sizeof(temp4); j++){
-      temp4[j]=temp4[j][1:-2];
+      temp4[j]=temp4[j].substr(1, temp4[i].length()-2);
     }
 
-    string temp5[][];
+    string** temp5;
     delimeter=" ";
     for(int j=0; j<sizeof(temp4); j++){
       pos=0;
@@ -317,11 +322,11 @@ bool Feed_forward::load_network(string full_path){
       while((pos=temp4[j].find(delimeter))!=string::npos){
         temp5[j][index]=temp4[j].substr(0, pos);
         index++;
-        temp4[j].erase(0, pos+delimeter+length());
+        temp4[j].erase(0, pos+delimeter.length());
       }
     }
 
-    int temp6[][];
+    int** temp6;
     for(int j=0; j<sizeof(temp5); j++){
       for(int x=0; x<sizeof(temp5[j]); j++){
         temp6[j][x]=(int)temp[j][x];
@@ -333,15 +338,15 @@ bool Feed_forward::load_network(string full_path){
     }
   }
 
-  this->biasses=temp3;
+  this->biasses=convert_to_float(temp3);
 
 
   this->activation_function=Activation_functions::get_func(activation_function_name);
-  this->num_hiddenlayers=(int)number_hl;
+  this->num_hiddenlayers=convert_to_int(number_hl);
 
 
-  string npl_=npl
-  string temp_npl[];
+  string npl_=npl;
+  string* temp_npl;
   index=0;
   pos=0;
 
@@ -351,10 +356,10 @@ bool Feed_forward::load_network(string full_path){
     npl_.erase(0, pos+delimeter.length());
   }
 
-  int temp_npl2[];
+  int* temp_npl2;
   for(int i=0; i<sizeof(temp_npl); i++){
     if(temp_npl[i]=="]"){break;}
-    temp_npl2[i]=(int)temp_npl[i];
+    temp_npl2[i]=convert_to_int(temp_npl[i]);
   }
   this->nodes_per_layer=temp_npl2;
 
@@ -362,7 +367,7 @@ bool Feed_forward::load_network(string full_path){
   return true;
 }
 
-bool set_activation_function(string activation_function){
+bool Feed_forward::set_activation_function(string activation_function){
   return this->set_activation(activation_function);
 }
 
@@ -370,16 +375,17 @@ bool set_activation_function(string activation_function){
 string Feed_forward::backpropagation(float output[]){
 
 }
-void Feed_forward::train(float training_data[][2][], bool print_result=true, string text_file_path=NULL, string name=NULL){
-  float output[];
+//[][2][]
+void Feed_forward::train(float*** training_data, bool print_result, string text_file_path, string name){
+  float* output;
   string result;
-  if(name!=NULL&&text_file_path==NULL){printf("You have not provided a path for the file therefore the result will not be recorded. However the network will still run\n");}
-  if(text_file_path!=NULL){
-    if(name==NULL){
+  ofstream log_file;
+  if(name!=""&&text_file_path==""){printf("You have not provided a path for the file therefore the result will not be recorded. However the network will still run\n");}
+  if(text_file_path!=""){
+    if(name==""){
       printf("You have not provided a name for the text file therefore the result will not be recorded. However the network will still run\n");
-      text_file_path=NULL;
+      text_file_path="";
     }else{
-      ofstream log_file;
       log_file.open(text_file_path+"/"+name+".nn_log");
     }
   }
@@ -389,24 +395,24 @@ void Feed_forward::train(float training_data[][2][], bool print_result=true, str
       result=this->backpropagation(output);
     }
     if(print_result){
-      printf("%s\n", result);
+      printf("%s\n", result.c_str());
     }
-    if(text_file_path!=NULL){
+    if(text_file_path!=""){
       log_file<<result<<endl;
     }
   }
-  if(text_file_path!=NULL){log_file.close();}
+  if(text_file_path!=""){log_file.close();}
 }
 
-float[] Feed_forward::calculate_layer(Node layer[], float inputs[]){
-  float outputs[];
+float* Feed_forward::calculate_layer(Node** layer, float* inputs){
+  float* outputs;
   for(int i=0; i<sizeof(layer); i++){
-    outputs[i]=layer[i].calculate(inputs);
+    outputs[i]=layer[i]->calculate(inputs);
   }
   return outputs;
 }
 
-float[] Feed_forward::use_network(float inputs[]){
+float* Feed_forward::use_network(float* inputs){
   for(int x=0; x<sizeof(this->nodes); x++){
     inputs=this->calculate_layer(this->nodes[x], inputs);
   }

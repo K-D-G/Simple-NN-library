@@ -22,9 +22,9 @@ float Node::formula(float** calculation_array){
   return total;
 }
 
-float* Node::calculate(float* inputs){
+float Node::calculate(float* inputs){
   if(sizeof(inputs)!=sizeof(weights)||sizeof(inputs)!=sizeof(biasses)){
-    return (float*)NULL;
+    return (float)NULL;
   }
   float** calculation_array;
   for(int i=0; i<sizeof(inputs); i++){
@@ -36,7 +36,7 @@ float* Node::calculate(float* inputs){
   float calculation_result=formula(calculation_array);
   float* calc_result;
   calc_result[0]=calculation_result;
-  return activation_function(calc_result);
+  return activation_function(calc_result)[0];
 }
 
 void Node::set_weights(float* weights){
