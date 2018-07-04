@@ -1,19 +1,20 @@
 #include <networks/node.h>
 
-using namespace the_network;
+using namespace Simple_NN_library;
 using namespace networks;
 using namespace functions;
+using namespace further_maths;
 
-Node::Node(float weights[], float biasses[], float* activation_function){
-  this.set_weights(weights);
-  this.set_biasses(biasses);
-  this.set_activation(activation_function);
+Node::Node(float* weights, float* biasses, float* activation_function(float*)){
+  set_weights(weights);
+  set_biasses(biasses);
+  set_activation(activation_function);
 }
 Node::~Node(){
 
 }
 
-float Node::formula(float calculation_array[][3]){
+float Node::formula(float** calculation_array){
   float total=0;
   for(int i=0; i<sizeof(calculation_array); i++){
     total+=(calculation_array[i][0]*calculation_array[i][1])+calculation_array[i][2];
@@ -21,31 +22,30 @@ float Node::formula(float calculation_array[][3]){
   return total;
 }
 
-float Node::calculate(float inputs[]){
-  if(sizeof(inputs)!=sizeof(this.weights)||sizeof(inputs)!=sizeof(this.biasses)){
-    return (float)NULL;
+float* Node::calculate(float* inputs){
+  if(sizeof(inputs)!=sizeof(weights)||sizeof(inputs)!=sizeof(biasses)){
+    return (float*)NULL;
   }
-  float calculation_array[sizeof(inputs)][3];
+  float** calculation_array;
   for(int i=0; i<sizeof(inputs); i++){
-    calculation_array[i]={inputs[i], this.weights[i], this.biasses[i]};
+    calculation_array[i][0]=inputs[i];
+    calculation_array[i][1]=weights[i];
+    calculation_array[i][2]=biasses[i];
   }
 
-  float calculation_result=sum(this.formula(calculation_array));
-  return this.activation_function(calculation_result);
+  float calculation_result=formula(calculation_array);
+  float* calc_result;
+  calc_result[0]=calculation_result;
+  return activation_function(calc_result);
 }
 
-void Node::set_weights(float weights[]){
-  this.weights=weights;
+void Node::set_weights(float* weights){
+  weights=weights;
 }
-void Node::set_biasses(float biasses[]){
-  this.biasses=biasses;
+void Node::set_biasses(float* biasses){
+  biasses=biasses;
 }
-bool Node::set_activation(float* activation_function){
-  for(int i=0; i<sizeof(Activation_functions.list_of_functions); i++){
-    if(Activation_functions.list_of_functions[i]==activation_function){
-      this.activation_function=activation_function;
-      return true;
-    }
-  }
-  return false;
+bool Node::set_activation(float* activation_function(float*)){
+  activation_function=activation_function;
+  return true;
 }

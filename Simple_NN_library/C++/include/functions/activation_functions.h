@@ -11,8 +11,8 @@ namespace Simple_NN_library{
       typedef float* (*pointer)(float*);
     public:
 
-      std::string get_func_name(float* func(float*));
-      pointer get_func(std::string name);
+      static std::string get_func_name(float* func(float*));
+      static pointer get_func(std::string name);
 
       static float* sigmoid(float* x);
       static float* tanh(float* x);

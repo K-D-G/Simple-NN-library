@@ -10,8 +10,8 @@ namespace Simple_NN_library{
       private:
         typedef float (*pointer)(float*, float*);
       public:
-        std::string get_func_name(float func(float*, float*));
-        pointer get_func(std::string name);
+        static std::string get_func_name(float func(float*, float*));
+        static pointer get_func(std::string name);
 
         static float log_cosh(float* output, float* expected_output);
         static float kullback_leibler_divergence(float* output, float* expected_output);

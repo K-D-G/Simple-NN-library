@@ -12,8 +12,8 @@ namespace Simple_NN_library{
         typedef float (*pointer)(float*, float*);
       public:
 
-        std::string get_func_name(float func(float*, float*));
-        pointer get_func(std::string name);
+        static std::string get_func_name(float func(float*, float*));
+        static pointer get_func(std::string name);
 
         static float binary_cross_entropy(float* output, float* expected_output);
         static float negative_log_likelihood(float* output, float* expected_output);
