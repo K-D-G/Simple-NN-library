@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple_NN_library:(VAR: project_name)</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+</head>
+<body>
+  <canvas id="graphs" width="400" height="400"></canvas>
+  <script>
+    var ctx=document.getElementById('graphs');
+    var cost_graph=new Chart(ctx, {
+        type:"bar",
+        data:{
+          labels:[(VAR: epochs)]
+          datasets:[{
+            label:"Input",
+            backgroundColor:"orange",
+            data:[(VAR: input)]
+          },{
+            label:"Output",
+            backgroundColor:"yellow",
+            data:[(VAR: output)]
+          }]
+        }
+    });
+  </script>
+</body>
+</html>
